@@ -1,0 +1,37 @@
+# MIIA API
+
+API backend da plataforma de estudos MIIA, construída com FastAPI e SQLAlchemy.
+
+## 📋 Pré-requisitos
+- Python 3.10+
+- [pipenv](https://pipenv.pypa.io/) ou `venv`/`virtualenv`
+- Docker & Docker Compose
+
+1. **Clone o repositório, crie e ative o ambiente virtual**
+```bash
+python -m venv venv
+source venv/bin/activate      # macOS/Linux
+.\venv\Scripts\activate   # Windows
+```
+
+2. **Instale as dependências**
+```pip install -r requirements.txt```
+
+3. **Crie o arquivo `.env`**
+```bash
+JWT_SECRET=Nk3PbZ7YhQs8WoLx1RdT
+ENVIRONMENT=development
+```
+
+4. **Inicie o banco de dados**
+```bash
+docker-compose up -d
+```
+5. **Crie o banco de dados**
+```bash
+alembic upgrade head
+```
+6. **Inicie o servidor**
+```bash
+uvicorn app.main.main:app --reload
+```
