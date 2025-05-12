@@ -1,29 +1,5 @@
-# from sqlalchemy import create_engine, text
-# from sqlalchemy.orm import sessionmaker
-# from app.main.adapter.logger import logger
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
-
-
-
-# # Ajuste conforme suas credenciais
-# SQLALCHEMY_DATABASE_URL = "postgresql://user:password@localhost:5432/dbname"
-
-# # Cria engine e sessão
-# engine = create_engine(SQLALCHEMY_DATABASE_URL)
-# SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-
-# def init_db():
-#     try:
-#         # Testa conexão básica
-#         with engine.connect() as conn:
-#             conn.execute(text("SELECT 1"))
-#         # Testa conexão com o banco de dados
-#         logger.info("Database connection successful")
-#     except Exception as e:
-#         logger.error(f"Database connection failed: {e}")
-#         raise
 
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker

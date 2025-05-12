@@ -18,10 +18,6 @@ class RegisterUserUseCase:
         self.passwordProvider = passwordProvider
 
     async def execute(self, user: RegisterUserDTO) -> Result[any]:
-        # Check if user already exists
-        # userExists = await self.userRepository.userExists(user.email)
-        # if userExists:
-        #     raise ValueError("User already exists")
         
         try:
             passwordResult = await self.passwordProvider.hash(user.password)
@@ -44,7 +40,6 @@ class RegisterUserUseCase:
             await self.userRepository.registerUser(user_model)
             return Result.ok()
         except Exception as e:
-            print("Error during user registration:", str(e))
             self.logger.error(f"Error during user registration: {str(e)}")
             
             return Result.fail(f"Error during user registration: {str(e)}")
