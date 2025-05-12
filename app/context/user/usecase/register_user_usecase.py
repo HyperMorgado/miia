@@ -31,9 +31,7 @@ class RegisterUserUseCase:
             
             hashed_password = passwordResult.get_value().get("hash")
             salt = passwordResult.get_value().get("salt")
-            
-            print("hashed_password", hashed_password)
-            print("salt", salt) 
+
             
             # Register the user
             user_model = UserModel(

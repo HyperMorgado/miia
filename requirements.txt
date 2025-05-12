@@ -7,3 +7,5 @@ PyJWT
 pydantic-settings
 python-dotenv
 pydantic[email]
+asyncpg
+greenlet

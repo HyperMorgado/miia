@@ -3,7 +3,7 @@ import jwt
 # from app.main.config.environment.environment_settings import settings
 
 # SECRET_KEY = settings.secrets['jwt']
-SECRET_KEY = "Nk3PbZ7YhQs8WoLx1RdT"
+SECRET_KEY = "Nk3PbZ7YhQs8WoLx1RdT" # Example secret key, replace with .env - just for MIIA Test
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
