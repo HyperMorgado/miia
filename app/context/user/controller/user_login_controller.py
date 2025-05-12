@@ -30,12 +30,11 @@ class UserLoginController(AbstractController):
         self.logger.info(f"Login attempt for user: {userLoginDto.document}, result: {result}")
 
         # Return the result as a JSON response
-        response.body = result.get_value()
-        # response.status_code = 200 if result.is_success() else 401
-        
-        if result.get_value() is None:
+            
+        if result.is_failure:
             response.body = {"error": result.error}
-            response.status_code = 401
-            return Result.fail()
+            response.status_code = 404
+            # the correct approach returning custom status code to each error but for now and for test, its ok
+            return Result.fail(result.error)
         else:
             return result.get_value()

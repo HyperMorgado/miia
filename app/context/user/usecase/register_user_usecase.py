@@ -46,6 +46,7 @@ class RegisterUserUseCase:
         except Exception as e:
             print("Error during user registration:", str(e))
             self.logger.error(f"Error during user registration: {str(e)}")
+            
             return Result.fail(f"Error during user registration: {str(e)}")
         
 

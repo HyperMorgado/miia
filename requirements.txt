@@ -9,3 +9,6 @@ python-dotenv
 pydantic[email]
 asyncpg
 greenlet
+pytest
+httpx
+pytest-asyncio

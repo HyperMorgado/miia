@@ -5,6 +5,7 @@ from app.context.user.external.model.user_model import UserModel
 from app.context.user.external.repository.user_repository import UserRepository
 from app.shared.protocol.result import Result
 from app.shared.provider.jwt_provider.jwt_provider import JwtProvider
+from app.shared.provider.password_provider.password_provider import PasswordProvider
 
 
 class LoginUserUseCase:
@@ -12,7 +13,7 @@ class LoginUserUseCase:
     Use case for logging in a user.
     """
 
-    def __init__(self, user_repository: UserRepository, logger, password_provider, jwtProvider: JwtProvider ):
+    def __init__(self, user_repository: UserRepository, logger, password_provider: PasswordProvider, jwtProvider: JwtProvider ):
         self.user_repository = user_repository
         self.logger = logger
         self.password_provider = password_provider
@@ -31,12 +32,15 @@ class LoginUserUseCase:
         # Check if the user exists
         if not user:
             self.logger.warning(f"User not found for document: {document}")
-            return None
+            return Result.fail("User not found")
 
         # Verify the password
-        if not self.password_provider.compare(password, user.password, user.salt):
+        
+        compareResult = await self.password_provider.compare(password, user.salt, user.password)
+        
+        if not compareResult.get_value():
             self.logger.warning(f"Invalid password for document: {document}")
-            return None
+            return Result.fail("Invalid password")
 
         # Log successful login
         self.logger.info(f"User logged in successfully for document: {document}")

@@ -7,6 +7,7 @@ from app.main.config.server.helpers.http_helper import ok
 from app.main.config.server.http import HttpRequest, HttpResponse
 from app.shared.error.type import server_error
 from app.shared.protocol.controller import AbstractController
+from app.shared.protocol.result import Result
 from app.shared.util.get_line_number import getFileAndLineCaller
 
 class UserRegisterController(AbstractController):
@@ -29,10 +30,10 @@ class UserRegisterController(AbstractController):
                 registerUserUseCaseResult = await self.registerUserUsecase.execute(dto)
 
                 # it's comment because the test is not ok. The goal of this code its to test the response of usecase
-                # if registerUserUseCaseResult.is_failure():
-                #     response.status_code = 400
-                #     response.body = {"error": registerUserUseCaseResult.error}
-                #     return response
+                if registerUserUseCaseResult.is_failure:
+                    response.status_code = 404
+                    response.body = {"error": registerUserUseCaseResult.error}
+                    return registerUserUseCaseResult
 
                 self.logger.info(
                     message="User registered successfully",
@@ -49,10 +50,5 @@ class UserRegisterController(AbstractController):
                     metadata={"file": getFileAndLineCaller()},
                 )
                 # this status code response in hard code if not a good practice, but it's ok because is a test
-                response.status_code = 500
-                # response.body =  {
-                #     "error": server_error(
-                #         stack_trace=str(err),
-                #     ),
-                # }
-                return response
+                response.status_code = 404
+                return Result.fail(err)
