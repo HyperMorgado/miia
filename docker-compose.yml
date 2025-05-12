@@ -1,0 +1,18 @@
+services:
+  miia-postgres:
+    container_name: miia-postgres
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: 1XZpQoTgk34MdLH8xW5Y
+      POSTGRES_PASSWORD: 9YkdwRuTnJc2Boqx4EhV
+      POSTGRES_DB: miia_db
+    ports:
+      - "5443:5432"
+    volumes:
+      # parallels on mac os does not support hard links, that's why we have to do it
+      - postgres-data:/data/postgres
+
+volumes:
+    postgres-data:
+        name: postgres_miia
